@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Privacy policy — Casa capture</title>
+<link rel="icon" href="icons/icon-32.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <img src="icons/icon-128.png" alt="">
+  <div>
+    <h1>Privacy policy</h1>
+    <p>Casa capture — effective 23 August 2026</p>
+  </div>
+</header>
+
+<p class="lede">
+  Casa capture sends data to <strong>one address: the one you type into its options page</strong>,
+  which is a server you host and operate. It has no other destination.
+</p>
+
+<div class="note">
+  <p>
+    <strong>The author of this extension operates no server and receives no data from it — not
+    now, not in aggregate, not anonymised.</strong> There is no analytics, no telemetry, no crash
+    reporting and no third party of any kind. This is not a promise about how collected data is
+    handled; it is that there is no collection to handle.
+  </p>
+</div>
+
+<h2>What leaves your browser</h2>
+
+<p>When you open a property page on a site the extension covers, it sends to your own Casa:</p>
+
+<table>
+  <tr><th>Field</th><th>What it is</th></tr>
+  <tr><td><code>url</code></td><td>The address of the page you opened.</td></tr>
+  <tr><td><code>page_type</code></td><td>Whether it looked like a search page or a single listing.</td></tr>
+  <tr><td><code>documents</code></td><td>The page's own machine-readable evidence, verbatim: its <code>application/ld+json</code> blocks and the JSON state blob its framework left in the DOM. Where a page publishes neither, a stripped copy of its main content instead.</td></tr>
+  <tr><td><code>dropped</code></td><td>Present only when something was too large or unreadable to include, so that "this page published nothing" can be told apart from "we discarded what it published".</td></tr>
+  <tr><td><code>captured_at</code></td><td>When the capture was taken.</td></tr>
+  <tr><td><code>extension_version</code></td><td>The extension's version.</td></tr>
+</table>
+
+<p>
+  Each request carries the token you configured, as an <code>Authorization</code> header, so your
+  Casa can tell which of your installations sent it.
+</p>
+
+<h3>This includes the URLs of pages you visited</h3>
+
+<p>
+  Stated plainly because it is easy to gloss over: the address of every page the extension captures
+  leaves your browser. That is a subset of your browsing history. It is limited to the sites the
+  extension runs on, it excludes the account pages described below, and it never includes a page you
+  did not open yourself — but it is not nothing, and Firefox will tell you so on the install screen.
+</p>
+
+<h2>What never leaves your browser</h2>
+
+<ul>
+  <li><strong>Cookies and credentials.</strong> The extension does not read them.</li>
+  <li><strong>Your account pages.</strong> Addresses matching the sites' signed-in areas — saved
+      searches, alerts, favourites, messages, login and profile pages — are refused before anything
+      on them is read.</li>
+  <li><strong>Pages you did not open.</strong> Nothing here opens a page: not on a timer, not in a
+      background tab, not while the browser is unattended. The queue of suggested pages is rendered
+      as ordinary links, and the code contains no way to follow one.</li>
+  <li><strong>Anything from a site you have not granted access to.</strong></li>
+</ul>
+
+<h2>What is stored on your device</h2>
+
+<p>In the browser's extension storage, and nowhere else:</p>
+
+<ul>
+  <li><strong>Your settings</strong> — the address of your Casa, your token, and any extra hosts you
+      added.</li>
+  <li><strong>A queue of captures</strong> waiting to be sent, if your Casa was unreachable. It holds
+      at most 200, oldest dropped first, and a second capture of the same page replaces the first. An
+      item leaves the queue when it is delivered.</li>
+  <li><strong>The last outcome</strong> — whether the last send succeeded, and the error if it did
+      not.</li>
+</ul>
+
+<p>Uninstalling the extension removes all of it.</p>
+
+<h2>Permissions, and why each exists</h2>
+
+<table>
+  <tr><th>Permission</th><th>Why</th></tr>
+  <tr><td><code>storage</code></td><td>The queue and your settings, which have to survive the browser closing.</td></tr>
+  <tr><td><code>alarms</code></td><td>Retrying a send after your Casa has been unreachable. A background script is stopped when idle, so a timer would not survive; an alarm does.</td></tr>
+  <tr><td><code>scripting</code></td><td>Running the collector on an extra site you add yourself, and only that.</td></tr>
+  <tr><td>Access to four property sites</td><td>The sites it reads. Never <code>&lt;all_urls&gt;</code>.</td></tr>
+  <tr><td>Optional access to other addresses</td><td><strong>Nothing is granted by this at install.</strong> Your Casa's LAN address cannot be written into an extension's manifest, so the extension asks for exactly that origin when you press Save — and for an extra site's origin if you add one.</td></tr>
+</table>
+
+<h2>What Firefox is told this collects</h2>
+
+<p>
+  Firefox requires an add-on to declare what it transmits, and shows it to you before you install.
+  Casa capture declares two things:
+</p>
+
+<table>
+  <tr><td><strong>Website content</strong></td><td>The evidence blocks described above.</td></tr>
+  <tr><td><strong>Browsing activity</strong></td><td>The URLs of the pages it captures.</td></tr>
+</table>
+
+<p>
+  Both go only to the address you configured. Declaring them is a statement about what the software
+  transmits, not about anyone receiving it other than you.
+</p>
+
+<h2>Children</h2>
+
+<p>
+  This is a companion to self-hosted server software and is not directed at children. It collects
+  nothing about who is using it — it has no account, no identifier and no profile.
+</p>
+
+<h2>Changes</h2>
+
+<p>
+  Any change to this policy is published here, with a new effective date, and is visible in this
+  page's history in the
+  <a href="https://github.com/mathieu-fortin/casa-capture">repository</a>.
+</p>
+
+<h2>Contact</h2>
+
+<p>
+  Questions or concerns:
+  <a href="https://github.com/mathieu-fortin/casa-capture/issues">open an issue</a>.
+</p>
+
+<footer>
+  <a href="./">Casa capture</a> ·
+  <a href="https://github.com/mathieu-fortin/casa-capture">Source and releases</a>
+</footer>
+
+</body>
+</html>

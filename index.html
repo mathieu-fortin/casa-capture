@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Casa capture</title>
+<link rel="icon" href="icons/icon-32.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <img src="icons/icon-128.png" alt="">
+  <div>
+    <h1>Casa capture</h1>
+    <p>A browser extension for Firefox and Chrome</p>
+  </div>
+</header>
+
+<p class="lede">
+  It reads the property pages <strong>you</strong> open and posts what they already publish to
+  <strong>your own</strong> <a href="https://github.com/mathieu-fortin/casa">Casa</a>, on your own
+  network.
+</p>
+
+<div class="note">
+  <p>
+    <strong>It does nothing on its own.</strong> Casa is self-hosted software, and this is its
+    companion. Without a Casa instance you can reach and a token from it, this extension has nowhere
+    to send anything and will sit there doing nothing. That is the design, not a limitation.
+  </p>
+</div>
+
+<h2>What it does, and what it will not do</h2>
+
+<p>
+  <strong>It makes no requests of its own to any property site.</strong> There is exactly one
+  <code>fetch()</code> in the whole extension, and its address is the one you type into the options
+  page. The script that runs on the sites contains no <code>fetch</code>, no
+  <code>XMLHttpRequest</code>, no <code>sendBeacon</code> and no dynamic <code>import</code> — a
+  test in Casa's own suite asserts exactly that on every commit, rather than promising it here.
+</p>
+
+<p>
+  The sites this covers sit behind an anti-bot tenancy and refuse an automated fetch. A served block
+  is a stop signal, so nothing here tries to get past it: the page in front of you was fetched by
+  you, browsing, as you were going to anyway.
+</p>
+
+<p>
+  <strong>It extracts nothing clever.</strong> It collects the page's own machine-readable evidence
+  and sends it verbatim; all the understanding lives in Casa. So when a site redesigns, the fix is a
+  parser edit and a replay over everything ever captured — you do not reinstall anything and you do
+  not re-browse a fortnight of listings.
+</p>
+
+<p>
+  <strong>It shows you a queue. It never works one.</strong> The options page lists the pages your
+  Casa says would tell it the most, best first, with the reason attached. Every one of them opens
+  because you clicked it. The code contains no way to open one, and a test greps every script and
+  fails if one appears.
+</p>
+
+<h2>Install</h2>
+
+<h3>Firefox — desktop and Android</h3>
+
+<p>
+  Download the <code>.xpi</code> from the
+  <a href="https://github.com/mathieu-fortin/casa-capture/releases/latest">latest release</a>. It is
+  signed by Mozilla, so it installs into ordinary release Firefox and <strong>updates itself</strong>
+  from then on.
+</p>
+
+<p>
+  On desktop, opening the link in Firefox is enough. On Android there is no web install: save the
+  file, then <strong>Settings → Add-ons → Install add-on from file</strong>.
+</p>
+
+<p>
+  Then, and this catches everybody: <strong>Firefox treats host permissions as opt-in.</strong> Open
+  <strong>Add-ons → Casa capture → Permissions</strong> and allow access to the sites. Until you do,
+  it sits there doing nothing, which looks exactly like it being broken.
+</p>
+
+<h3>Chrome, Edge or Brave — desktop only</h3>
+
+<p>
+  Chrome blocks extensions from every source but its own Web Store, so there is no one-click install
+  and there cannot be one until this is published there. Download the <code>.zip</code> from the
+  latest release, unzip it <strong>somewhere permanent</strong>, open
+  <code>chrome://extensions</code>, turn on <strong>Developer mode</strong>, and use
+  <strong>Load unpacked</strong>.
+</p>
+
+<p>
+  Two consequences are permanent rather than teething problems: Chrome shows a <em>"Disable
+  developer mode extensions"</em> warning at every start, and <strong>nothing auto-updates</strong>.
+</p>
+
+<p><strong>Chrome on Android cannot run this, or any extension.</strong> Use Firefox.</p>
+
+<h2>Privacy</h2>
+
+<p>
+  It sends data to one address: the one you configure. The author operates no server and receives
+  nothing. <a href="privacy.html">Read the full policy</a>.
+</p>
+
+<footer>
+  <a href="privacy.html">Privacy policy</a> ·
+  <a href="https://github.com/mathieu-fortin/casa-capture">Source and releases</a> ·
+  MIT licensed
+</footer>
+
+</body>
+</html>
